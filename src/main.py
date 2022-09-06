@@ -1,5 +1,6 @@
 import logging
 import os
+from multiprocessing import Pool, cpu_count
 from pathlib import Path
 
 import cv2 as cv
@@ -12,8 +13,10 @@ IMAGES = [str(image.absolute()) for image in Config.IMAGES_DIR.iterdir()]
 
 
 def save_images(images: dict[str, str], path: str | Path):
-    for name, image in images.items():
-        cv.imwrite(f"{path}/{name}.png", image)
+    with Pool(cpu_count()) as pool:
+        result = pool.starmap_async(cv.imwrite, [(f"{path}/{name}.png", image) for name, image in images.items()])
+        result.wait()
+    pool.join()
 
 
 if __name__ == '__main__':
