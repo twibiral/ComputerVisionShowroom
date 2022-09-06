@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Computer Vision Showroom</title>
+    <script src="scripts/base.js" defer></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Computer Vision Showroom</h1>
+    <hr>
+
+    <div>
+    <span>
+        <label for="image-selector">Image:</label>
+        <select name="image-selector" id="image-selector" onchange="update_image()">
+            {% for image in images %}
+                <option value="{{ image }}">{{ image }}</option>
+            {% endfor %}
+        </select>
+    </span>
+    <span>
+        <label for="noise-selector">Noise:</label>
+        <select name="noise-selector" id="noise-selector" onchange="update_image()">
+            {% for noise in noises %}
+                <option value="{{ noise }}">{{ noise }}</option>
+            {% endfor %}
+        </select>
+    </span>
+    <span>
+        <label for="filter-selector">Filter:</label>
+        <select name="filter-selector" id="filter-selector" onchange="update_image()">
+            {% for filter in filters %}
+                <option value="{{ filter }}">{{ filter }}</option>
+            {% endfor %}
+        </select>
+    </span>
+    </div>
+
+    <img id="image" src="">
+{% endblock %}

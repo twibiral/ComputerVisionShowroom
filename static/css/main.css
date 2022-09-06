@@ -1,0 +1,27 @@
+body {
+    text-align: center;
+    margin: 10%;
+}
+
+body img {
+    width: 100%;
+    height: auto;
+}
+
+hr {
+    margin-bottom: 1.5em;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+div {
+    margin: 1em 0;
+    display: flex;
+    justify-content: space-between;
+}
