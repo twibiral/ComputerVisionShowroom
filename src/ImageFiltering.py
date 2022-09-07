@@ -12,10 +12,10 @@ from FilterFunctions import kmean_segmentation, noise_with_skimage
 FILTER_FUNCTIONS = {
     'no_filter': lambda image: {'no_filter': image},
     'averaging_blur': Filter(cv.blur, 'averaging_blur', ksize=[(10, 10), (50, 50), (100, 100)]),
-    'gaussian_blur': Filter(cv.GaussianBlur, 'gaussian_blur', ksize=[(3, 3), (5, 5), (11, 11), (51, 51), (101, 101)], sigmaX=[0]),
+    'gaussian_blur': Filter(cv.GaussianBlur, 'gaussian_blur', ksize=[(3, 3), (5, 5), (11, 11), (51, 51), (101, 101)], sigmaX=0),
     'median_blur': Filter(cv.medianBlur, 'median_blur', ksize=[3, 5, 11, 51, 101]),
     'bilateral_filter': Filter(cv.bilateralFilter, 'bilateral_filter', d=9, sigmaColor=75, sigmaSpace=75),
-    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 3))),
+    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 11))),
 }
 
 NOISE_FUNCTIONS = {
