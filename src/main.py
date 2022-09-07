@@ -44,9 +44,9 @@ if __name__ == '__main__':
     preparatory_clean_up()
 
     logging.info(f"Generating noised and filtered images with {len(IMAGES)} images, "
-                 f"{len(ImageFiltering.FILTER_FUNCTIONS2)} filters and {len(ImageFiltering.NOISE_FUNCTIONS2)} "
+                 f"{len(ImageFiltering.FILTER_FUNCTIONS)} filters and {len(ImageFiltering.NOISE_FUNCTIONS)} "
                  f"noise generators.")
-    filtered_images = ImageFiltering.noise_and_filters_images2(IMAGES)
+    filtered_images = ImageFiltering.noise_and_filter_images(IMAGES)
     logging.info(f"Generated: {len(list(filtered_images.keys()))} images.")
 
     logging.info(f"Saving images...")
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     logging.info(f"Generating web page...")
     web_page = WebPage(images=IMAGES,
-                       noises=get_all_filter_strings_for(ImageFiltering.NOISE_FUNCTIONS2),
-                       filters=get_all_filter_strings_for(ImageFiltering.FILTER_FUNCTIONS2))
+                       noises=get_all_filter_strings_for(ImageFiltering.NOISE_FUNCTIONS),
+                       filters=get_all_filter_strings_for(ImageFiltering.FILTER_FUNCTIONS))
     index_page = web_page.generate()
     logging.info(f"Done! -> {index_page}")
