@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    margin: 10%;
+    margin: 5% 10%;
 }
 
 body img {
@@ -25,5 +25,5 @@ hr {
 div {
     margin: 1em 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }

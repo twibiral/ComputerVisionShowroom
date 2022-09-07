@@ -15,5 +15,11 @@ function update_image() {
     filtered_image.src = `generated/${image_selector.value}${bw_or_color}_${noise_selector.value}_${filter_selector.value}.png`;
 
     original_image.src = `generated/${image_selector.value}.png`;
-    original_image.style.display = show_original.checked ? "block" : "none";
+    if (show_original.checked) {
+        original_image.parentElement.removeAttribute("hidden");
+        original_image.parentElement.style.display = "block";
+    } else {
+        original_image.parentElement.attributes.setNamedItem(document.createAttribute("hidden"));
+        original_image.parentElement.style.display = "none";
+    }
 }
