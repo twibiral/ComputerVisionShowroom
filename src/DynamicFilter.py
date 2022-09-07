@@ -9,7 +9,13 @@ def test_func(image, **kwargs):
 
 class Filter:
     def __init__(self, function, name: str = "UNDEFINED", **kwargs):
-        self.parameters = kwargs
+        self.parameters = dict()
+        for k, v in kwargs.items(): # all parameters must be wrapped in a list
+            if isinstance(v, list):
+                self.parameters[k] = v
+            else:
+                self.parameters[k] = [v]
+
         self.function = function
         self.name = name
 

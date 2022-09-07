@@ -1,3 +1,4 @@
+import logging
 import multiprocessing
 from functools import partial
 from pathlib import Path
@@ -34,12 +35,20 @@ NOISE_FUNCTIONS = {
 FILTER_FUNCTIONS2 = {
     'no_filter': lambda image: {'no_filter': image},
     'averaging_blur': Filter(cv.blur, 'averaging_blur', ksize=[(10, 10), (50, 50), (100, 100)]),
+    'gaussian_blur': Filter(cv.GaussianBlur, ksize=[(3, 3), (5, 5), (11, 11), (51, 51), (101, 101)], sigmaX=[0]),
+    'median_blur': Filter(cv.medianBlur, ksize=[3, 5, 11, 51, 101]),
+    'bilateral_filter': Filter(cv.bilateralFilter, d=9, sigmaColor=75, sigmaSpace=75),
+    'k-means': Filter(kmean_segmentation, n_clusters=list(range(2, 11))),
 }
 
 NOISE_FUNCTIONS2 = {
     'no_noise': lambda image: {'no_noise': image},
-    # 'gaussian_noise': lambda image: {'gaussian_noise': noise_with_skimage(image, mode='gaussian')},
     'gaussian_noise': Filter(partial(noise_with_skimage, mode='gaussian'), 'gaussian_noise', var=[0.01, 0.1]),
+    'salt': Filter(partial(noise_with_skimage, mode='salt'), 'salt', amount=[0.01, 0.1]),
+    'pepper': Filter(partial(noise_with_skimage, mode='pepper'), 'pepper', amount=[0.01, 0.1]),
+    'salt_and_pepper': Filter(partial(noise_with_skimage, mode='s&p'), 'salt_and_pepper', amount=[0.01, 0.1]),
+    'speckle': Filter(partial(noise_with_skimage, mode='speckle'), 'speckle', var=[0.01, 0.1]),
+    'poisson': Filter(partial(noise_with_skimage, mode='poisson'), 'poisson'),
 }
 
 
@@ -51,7 +60,10 @@ def apply_to_image(dict_of_functions: dict, cv_image, image_name: str) -> dict:
         new_images = filter_function(cv_image)
 
         # update the dictionary of images
-        generated_images.update(new_images)
+        if type(new_images) != dict:
+            logging.error(f"Filter function {filter_name} did not return a dictionary!Returned {type(new_images)}")
+        else:
+            generated_images.update(new_images)
 
     new_images = {f"{image_name}_{key}": value for key, value in generated_images.items()}
     return new_images
@@ -67,18 +79,14 @@ def noise_and_filter_image2(image_path: str | Path) -> dict[str, str]:
     # Add noise to colored images and to black-white images:
     new_images.update(apply_to_image(NOISE_FUNCTIONS2, image_color, image_name))
     new_images.update(apply_to_image(NOISE_FUNCTIONS2, image_bw, f"{image_name}_bw"))
-    print(new_images.keys())
 
     filtered = dict()
     for name, image in new_images.items():
-        r = apply_to_image(FILTER_FUNCTIONS2, image, name)
-        print("Filtering", r.keys())
-        filtered.update(r)
+        filtered.update(apply_to_image(FILTER_FUNCTIONS2, image, name))
 
     filtered[image_name] = image_color
     filtered[f"{image_name}_bw"] = image_bw
 
-    print(filtered.keys())
     return filtered
 
 

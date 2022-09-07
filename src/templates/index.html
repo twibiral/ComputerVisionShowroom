@@ -11,7 +11,7 @@
 
     <div>
         <label for="show-original-cb">Show original image?</label>
-        <input type="checkbox" id="show-original-cb" onchange="update_image()">
+        <input type="checkbox" id="show-original-cb" onchange="update_image()" checked>
 
         <label for="use-bw-images-cb">Change image to black and white?</label>
         <input type="checkbox" id="use-bw-images-cb" onchange="update_image()">
@@ -45,7 +45,7 @@
     </div>
     <div>
         <span>
-            <img id="image" src="">
+            <img id="image" src="" style="">
         </span>
         <span>
             <img id="filtered" src="">

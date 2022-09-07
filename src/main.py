@@ -10,7 +10,7 @@ import DynamicFilter
 import ImageFiltering
 from SiteGeneration import WebPage
 
-IMAGES = [str(image.absolute()) for image in Config.IMAGES_DIR.iterdir()]
+IMAGES = [str(image.absolute()) for image in Config.IMAGES_DIR.iterdir()][:2]
 
 
 def save_images(images: dict[str, str], path: str | Path):

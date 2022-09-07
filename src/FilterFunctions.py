@@ -19,4 +19,4 @@ def kmean_segmentation(cv2image, n_clusters):
 
 
 def noise_with_skimage(cv2image, mode: str, **kwargs):
-    return 255 * random_noise(np.asarray(cv2image), mode=mode, **kwargs).astype(np.uint8)
+    return 255 * random_noise((np.asarray(cv2image).astype(float)/255), mode=mode, **kwargs).astype(np.uint8)
