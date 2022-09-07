@@ -19,9 +19,10 @@ def save_images(images: dict[str, str], path: str | Path):
 
 
 def preparatory_clean_up():
-    if not os.path.exists(Config.STATIC_DIR / "generated"):
-        os.mkdir(Config.STATIC_DIR / "generated")
-    for file in (Config.STATIC_DIR / "generated").iterdir():
+    im_dir = Config.STATIC_DIR / "generated"
+    if not os.path.exists(im_dir):
+        os.mkdir(im_dir)
+    for file in im_dir.iterdir():
         os.remove(file)
 
 
@@ -44,11 +45,8 @@ if __name__ == '__main__':
     logging.info(f"Generating noised and filtered images with {len(IMAGES)} images, "
                  f"{len(ImageFiltering.FILTER_FUNCTIONS)} filters and {len(ImageFiltering.NOISE_FUNCTIONS)} "
                  f"noise generators.")
-    filtered_images = ImageFiltering.noise_and_filter_images(IMAGES)
-    logging.info(f"Generated: {len(list(filtered_images.keys()))} images.")
-
-    logging.info(f"Saving images...")
-    save_images(filtered_images, Config.STATIC_DIR / "generated")
+    n_filtered_images = ImageFiltering.noise_and_filter_images(IMAGES)
+    logging.info(f"Generated: {n_filtered_images} images.")
 
     logging.info(f"Generating web page...")
     web_page = WebPage(images=IMAGES,

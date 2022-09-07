@@ -5,9 +5,12 @@ from pathlib import Path
 
 import cv2 as cv
 
+import Config
 from DynamicFilter import Filter
 from FilterFunctions import kmean_segmentation, noise_with_skimage
 
+
+GENERATED_IMAGES_DIR = str((Config.STATIC_DIR / "generated").absolute())
 
 FILTER_FUNCTIONS = {
     'no_filter': lambda image: {'no_filter': image},
@@ -46,11 +49,11 @@ def apply_to_image(dict_of_functions: dict, cv_image, image_name: str) -> dict:
     return new_images
 
 
-def noise_and_filter_image(image_path: str | Path) -> dict[str, str]:
+def noise_and_filter_image(image_path: str | Path) -> int:
     new_images = dict()
 
     image_name = Path(image_path).stem
-    image_color = cv.imread(image_path)
+    image_color = cv.imread(image_path, cv.COLOR_BGR2RGB)
     image_bw = cv.cvtColor(image_color, cv.COLOR_BGR2GRAY)
 
     # Add noise to colored images and to black-white images:
@@ -64,16 +67,15 @@ def noise_and_filter_image(image_path: str | Path) -> dict[str, str]:
     filtered[image_name] = image_color
     filtered[f"{image_name}_bw"] = image_bw
 
-    return filtered
+    for name, image in filtered.items():
+        cv.imwrite(f"{GENERATED_IMAGES_DIR}/{name}.png", image)
+
+    return len(filtered.keys())
 
 
 def noise_and_filter_images(image_paths: list[str | Path]) -> dict[str, str]:
-    new_images = dict()
-
-    with multiprocessing.Pool(min(len(image_paths), multiprocessing.cpu_count())) as pool:
+    # with multiprocessing.Pool(min(len(image_paths), multiprocessing.cpu_count())) as pool:
+    with multiprocessing.Pool(6) as pool:
         results = pool.map(noise_and_filter_image, image_paths)
 
-    for result in results:
-        new_images.update(result)
-
-    return new_images
+    return sum(results)
