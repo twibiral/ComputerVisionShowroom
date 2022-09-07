@@ -73,7 +73,7 @@ def noise_and_filter_image(image_path: str | Path) -> int:
     return len(filtered.keys())
 
 
-def noise_and_filter_images(image_paths: list[str | Path]) -> dict[str, str]:
+def noise_and_filter_images(image_paths: list[str | Path]) -> int:
     # with multiprocessing.Pool(min(len(image_paths), multiprocessing.cpu_count())) as pool:
     with multiprocessing.Pool(6) as pool:
         results = pool.map(noise_and_filter_image, image_paths)
