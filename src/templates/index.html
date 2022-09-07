@@ -10,6 +10,14 @@
     <hr>
 
     <div>
+        <label for="show-original-cb">Show original image?</label>
+        <input type="checkbox" id="show-original-cb" onchange="update_image()">
+
+        <label for="use-bw-images-cb">Change image to black and white?</label>
+        <input type="checkbox" id="use-bw-images-cb" onchange="update_image()">
+    </div>
+
+    <div>
     <span>
         <label for="image-selector">Image:</label>
         <select name="image-selector" id="image-selector" onchange="update_image()">
@@ -18,7 +26,7 @@
             {% endfor %}
         </select>
     </span>
-    <span>
+        <span>
         <label for="noise-selector">Noise:</label>
         <select name="noise-selector" id="noise-selector" onchange="update_image()">
             {% for noise in noises %}
@@ -26,7 +34,7 @@
             {% endfor %}
         </select>
     </span>
-    <span>
+        <span>
         <label for="filter-selector">Filter:</label>
         <select name="filter-selector" id="filter-selector" onchange="update_image()">
             {% for filter in filters %}
@@ -35,6 +43,12 @@
         </select>
     </span>
     </div>
-
-    <img id="image" src="">
+    <div>
+        <span>
+            <img id="image" src="">
+        </span>
+        <span>
+            <img id="filtered" src="">
+        </span>
+    </div>
 {% endblock %}

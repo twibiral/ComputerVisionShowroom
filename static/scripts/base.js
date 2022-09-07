@@ -1,11 +1,19 @@
-const image = document.getElementById("image");
-const image_selector = document.getElementById("image-selector");
-const noise_selector = document.getElementById("noise-selector");
-const filter_selector = document.getElementById("filter-selector");
-
 update_image();
 
 function update_image() {
+    const original_image = document.getElementById("image");
+    const filtered_image = document.getElementById("filtered");
+    const use_bw_images = document.getElementById("use-bw-images-cb");
+    const show_original = document.getElementById("show-original-cb");
+
+    const image_selector = document.getElementById("image-selector");
+    const noise_selector = document.getElementById("noise-selector");
+    const filter_selector = document.getElementById("filter-selector");
+
     console.log("Updating image.");
-    image.src = `/static/generated/${image_selector.value}_${noise_selector.value}_${filter_selector.value}.png`;
+    const bw_or_color = use_bw_images.checked ? "_bw" : "";
+    filtered_image.src = `generated/${image_selector.value}${bw_or_color}_${noise_selector.value}_${filter_selector.value}.png`;
+
+    original_image.src = `generated/${image_selector.value}.png`;
+    original_image.style.display = show_original.checked ? "block" : "none";
 }

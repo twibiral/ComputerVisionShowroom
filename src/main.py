@@ -6,6 +6,7 @@ from pathlib import Path
 import cv2 as cv
 
 import Config
+import DynamicFilter
 import ImageFiltering
 from SiteGeneration import WebPage
 
@@ -26,14 +27,26 @@ def preparatory_clean_up():
         os.remove(file)
 
 
+def get_all_filter_strings_for(func_dict):
+    filter_strings = list()
+    for filter_name, filter_function in func_dict.items():
+        if type(filter_function) == DynamicFilter.Filter:
+            filter_strings.extend(filter_function.get_filter_strings())
+
+        else:
+            filter_strings.append(filter_name)
+
+    return filter_strings
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     preparatory_clean_up()
 
     logging.info(f"Generating noised and filtered images with {len(IMAGES)} images, "
-                 f"{len(ImageFiltering.FILTER_FUNCTIONS)} filters and {len(ImageFiltering.NOISE_FUNCTIONS)} "
+                 f"{len(ImageFiltering.FILTER_FUNCTIONS2)} filters and {len(ImageFiltering.NOISE_FUNCTIONS2)} "
                  f"noise generators.")
-    filtered_images = ImageFiltering.noise_and_filters_images(IMAGES)
+    filtered_images = ImageFiltering.noise_and_filters_images2(IMAGES)
     logging.info(f"Generated: {len(list(filtered_images.keys()))} images.")
 
     logging.info(f"Saving images...")
@@ -41,7 +54,7 @@ if __name__ == '__main__':
 
     logging.info(f"Generating web page...")
     web_page = WebPage(images=IMAGES,
-                       noises=ImageFiltering.NOISE_FUNCTIONS.keys(),
-                       filters=ImageFiltering.FILTER_FUNCTIONS.keys())
+                       noises=get_all_filter_strings_for(ImageFiltering.NOISE_FUNCTIONS2),
+                       filters=get_all_filter_strings_for(ImageFiltering.FILTER_FUNCTIONS2))
     index_page = web_page.generate()
     logging.info(f"Done! -> {index_page}")
