@@ -15,13 +15,13 @@ FILTER_FUNCTIONS = {
     'gaussian_blur': Filter(cv.GaussianBlur, 'gaussian_blur', ksize=[(3, 3), (5, 5), (11, 11), (51, 51), (101, 101)], sigmaX=[0]),
     'median_blur': Filter(cv.medianBlur, 'median_blur', ksize=[3, 5, 11, 51, 101]),
     'bilateral_filter': Filter(cv.bilateralFilter, 'bilateral_filter', d=9, sigmaColor=75, sigmaSpace=75),
-    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 11))),
+    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 3))),
 }
 
 NOISE_FUNCTIONS = {
     'no_noise': lambda image: {'no_noise': image},
     'gaussian_noise': Filter(partial(noise_with_skimage, mode='gaussian'), 'gaussian_noise', var=[0.01, 0.1]),
-    'salt': Filter(partial(noise_with_skimage, mode='salt'), 'salt', amount=[0.01, 0.1]),
+    'salt': Filter(partial(noise_with_skimage, mode='salt'), 'salt', amount=[0.01, 0.1, 0.2, 0.3]),
     'pepper': Filter(partial(noise_with_skimage, mode='pepper'), 'pepper', amount=[0.01, 0.1]),
     'salt_and_pepper': Filter(partial(noise_with_skimage, mode='s&p'), 'salt_and_pepper', amount=[0.01, 0.1]),
     'speckle': Filter(partial(noise_with_skimage, mode='speckle'), 'speckle', var=[0.01, 0.1]),
@@ -70,7 +70,7 @@ def noise_and_filter_image(image_path: str | Path) -> dict[str, str]:
 def noise_and_filter_images(image_paths: list[str | Path]) -> dict[str, str]:
     new_images = dict()
 
-    with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
+    with multiprocessing.Pool(min(len(image_paths), multiprocessing.cpu_count())) as pool:
         results = pool.map(noise_and_filter_image, image_paths)
 
     for result in results:

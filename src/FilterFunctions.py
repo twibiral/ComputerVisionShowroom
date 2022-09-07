@@ -4,7 +4,10 @@ from skimage.util import random_noise
 
 
 def kmean_segmentation(cv2image, n_clusters):
-    pixel_vals = cv2image.reshape((-1, 3))
+    if len(cv2image.shape) == 2:
+        pixel_vals = cv2image.reshape((-1, 1))
+    else:
+        pixel_vals = cv2image.reshape((-1, 3))
 
     pixel_vals = np.float32(pixel_vals)
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 100, 0.85)
@@ -19,4 +22,4 @@ def kmean_segmentation(cv2image, n_clusters):
 
 
 def noise_with_skimage(cv2image, mode: str, **kwargs):
-    return 255 * random_noise((np.asarray(cv2image).astype(float)/255), mode=mode, **kwargs).astype(np.uint8)
+    return (255 * random_noise(np.asarray(cv2image), mode=mode, **kwargs)).astype(np.uint8)

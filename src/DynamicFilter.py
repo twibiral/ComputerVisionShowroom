@@ -1,4 +1,5 @@
 import itertools
+import logging
 
 
 def test_func(image, **kwargs):
@@ -31,7 +32,11 @@ class Filter:
         for parameter_combination in self.all_parameter_combinations:
             parameter_dict = dict(zip(self.parameter_names, parameter_combination))
             new_name = f"{self.name}_" + "_".join([f"{name}={value}" for name, value in parameter_dict.items()])
+            # try:
             generated_images[new_name] = self.function(image, **parameter_dict)
+            # except Exception as e:
+            #     logging.error(f"Error ({self.name} with parameters {parameter_dict}): {e}")
+            #     return dict()
 
         return generated_images
 
