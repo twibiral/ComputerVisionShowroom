@@ -15,9 +15,7 @@ IMAGES = [str(image.absolute()) for image in Config.IMAGES_DIR.iterdir()]
 
 def save_images(images: dict[str, str], path: str | Path):
     with Pool(cpu_count()) as pool:
-        result = pool.starmap_async(cv.imwrite, [(f"{path}/{name}.png", image) for name, image in images.items()])
-        result.wait()
-    pool.join()
+        pool.starmap(cv.imwrite, [(f"{path}/{name}.png", image) for name, image in images.items()])
 
 
 def preparatory_clean_up():

@@ -1,0 +1,151 @@
+
+
+/* Roboto Font */
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto/Roboto-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto/Roboto-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("./fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto/Roboto-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+}
+
+
+
+/* Roboto Slab Font */
+/* by google (licensed under Apache License, Version 2.0). https://fonts.google.com/specimen/Roboto+Slab#license */
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-Thin.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-ExtraLight.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-Light.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-Regular.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("./fonts/RobotoSlab/RobotoSlab-Medium.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-SemiBold.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-Bold.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-ExtraBold.ttf") format("truetype"),
+    url(../fonts/RobotoSlab/font-roboto-slab.woff2) format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("../fonts/RobotoSlab/RobotoSlab-Black.ttf") format("truetype"),
+    url("../fonts/RobotoSlab/font-roboto-slab.woff2") format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+
+/* Font used instead of arial but looks almost the same: */
+@font-face {
+    font-family: liberation_sans;
+    src: url('../fonts/liberation_sans/LiberationSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: liberation_sans;
+    src: url('../fonts/liberation_sans/LiberationSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: liberation_sans;
+    src: url('../fonts/liberation_sans/LiberationSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: liberation_sans;
+    src: url('../fonts/liberation_sans/LiberationSans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}

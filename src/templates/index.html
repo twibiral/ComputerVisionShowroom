@@ -6,12 +6,20 @@
 {% endblock %}
 
 {% block body %}
+<header>
+    <h1>Computer Vision Showroom</h1>
+</header>
+
+<main>
     <div>
+        <span>
         <label for="show-original-cb">Show original image?</label>
         <input type="checkbox" id="show-original-cb" onchange="update_image()" checked>
-
+        </span>
+        <span>
         <label for="use-bw-images-cb">Change image to black and white?</label>
         <input type="checkbox" id="use-bw-images-cb" onchange="update_image()">
+        </span>
     </div>
 
     <div>
@@ -23,7 +31,7 @@
             {% endfor %}
         </select>
     </span>
-        <span>
+    <span>
         <label for="noise-selector">Noise:</label>
         <select name="noise-selector" id="noise-selector" onchange="update_image()">
             {% for noise in noises %}
@@ -31,7 +39,7 @@
             {% endfor %}
         </select>
     </span>
-        <span>
+    <span>
         <label for="filter-selector">Filter:</label>
         <select name="filter-selector" id="filter-selector" onchange="update_image()">
             {% for filter in filters %}
@@ -40,12 +48,15 @@
         </select>
     </span>
     </div>
+
     <div>
         <span>
-            <img id="image" src="" style="">
+            <img id="image" src="">
         </span>
-        <span>
+            <span>
             <img id="filtered" src="">
         </span>
     </div>
+
+</main>
 {% endblock %}
