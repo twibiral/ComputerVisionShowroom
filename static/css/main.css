@@ -1,8 +1,15 @@
 @import "fonts.css";
+@import "colors.css";
 
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
+}
+
+html {
+    background-color: var(--main-color);
 }
 
 body {
@@ -11,9 +18,9 @@ body {
 }
 
 header {
-    background-color: #FFC300;
+    background-color: var(--header-color);
     padding: 3pt 0;
-    box-shadow: 4px 4px 0 0 #000000;
+    box-shadow: var(--box-shadow-offset) var(--box-shadow-offset) 0 0 var(--box-shadow-color);
     font-family: "RobotoSlab", liberation_sans, sans-serif;
     font-weight: 300;
 }
@@ -27,16 +34,48 @@ img {
     height: auto;
     max-width: 95%;
     max-height: 75vh;
-    box-shadow: 4px 4px 0 0 #000000;
+    box-shadow: var(--box-shadow-offset) var(--box-shadow-offset) 0 0 var(--box-shadow-color);
     margin-top: 5vh;
 }
 
 main {
     margin: 5%;
+    font-weight: 500;
 }
 
 div {
-    margin: 1em 0;
+    margin: 2em 0;
     display: flex;
     justify-content: space-evenly;
+}
+
+span {
+    justify-content: space-evenly;
+}
+
+div.checkboxes {
+    justify-content: center;
+    background-color: var(--color2);
+    box-shadow: var(--box-shadow-offset) var(--box-shadow-offset) 0 0 #000000;
+    padding: .75em .5em;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+div.checkboxes > span {
+    margin: 0 1em;
+}
+
+select {
+    /*appearance: None;*/
+    background-color: var(--color3); /*transparent;*/
+    border: none;
+    padding: 0.25em 0.25em;
+    margin: .2em;
+    width: 25vw;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    box-shadow: var(--box-shadow-offset) var(--box-shadow-offset) 0 0 #000000;
 }
