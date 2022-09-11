@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <title>Computer Vision Showroom</title>
+    <script src="scripts/base.js" defer></script>
+
+</head>
+<body>
+
+<header>
+    <h1>Computer Vision Showroom</h1>
+</header>
+
+<main>
+    <div class="checkboxes">
+        <span>
+        <label for="show-original-cb">Show original image?</label>
+        <input type="checkbox" id="show-original-cb" onchange="update_image()" checked>
+        </span>
+        <span>
+        <label for="use-bw-images-cb">Change image to black and white?</label>
+        <input type="checkbox" id="use-bw-images-cb" onchange="update_image()">
+        </span>
+    </div>
+
+    <div>
+    <span>
+        <label for="image-selector">Image:</label>
+        <select name="image-selector" id="image-selector" onchange="update_image()">
+            
+                <option value="giraffes">giraffes</option>
+            
+                <option value="kodim01">kodim01</option>
+            
+                <option value="kodim21">kodim21</option>
+            
+                <option value="kodim23">kodim23</option>
+            
+                <option value="Lenna_(test_image)">Lenna_(test_image)</option>
+            
+                <option value="sample">sample</option>
+            
+        </select>
+    </span>
+    <span>
+        <label for="noise-selector">Noise:</label>
+        <select name="noise-selector" id="noise-selector" onchange="update_image()">
+            
+                <option value="no_noise">no_noise</option>
+            
+                <option value="gaussian_noise_var=0.01">gaussian_noise_var=0.01</option>
+            
+                <option value="gaussian_noise_var=0.1">gaussian_noise_var=0.1</option>
+            
+                <option value="salt_amount=0.01">salt_amount=0.01</option>
+            
+                <option value="salt_amount=0.1">salt_amount=0.1</option>
+            
+                <option value="pepper_amount=0.01">pepper_amount=0.01</option>
+            
+                <option value="pepper_amount=0.1">pepper_amount=0.1</option>
+            
+                <option value="salt_and_pepper_amount=0.01">salt_and_pepper_amount=0.01</option>
+            
+                <option value="salt_and_pepper_amount=0.1">salt_and_pepper_amount=0.1</option>
+            
+                <option value="speckle_var=0.01">speckle_var=0.01</option>
+            
+                <option value="speckle_var=0.1">speckle_var=0.1</option>
+            
+                <option value="poisson_">poisson_</option>
+            
+        </select>
+    </span>
+    <span>
+        <label for="filter-selector">Filter:</label>
+        <select name="filter-selector" id="filter-selector" onchange="update_image()">
+            
+                <option value="no_filter">no_filter</option>
+            
+                <option value="averaging_blur_ksize=(10, 10)">averaging_blur_ksize=(10, 10)</option>
+            
+                <option value="averaging_blur_ksize=(50, 50)">averaging_blur_ksize=(50, 50)</option>
+            
+                <option value="averaging_blur_ksize=(100, 100)">averaging_blur_ksize=(100, 100)</option>
+            
+                <option value="gaussian_blur_ksize=(11, 11)_sigmaX=0">gaussian_blur_ksize=(11, 11)_sigmaX=0</option>
+            
+                <option value="gaussian_blur_ksize=(51, 51)_sigmaX=0">gaussian_blur_ksize=(51, 51)_sigmaX=0</option>
+            
+                <option value="gaussian_blur_ksize=(101, 101)_sigmaX=0">gaussian_blur_ksize=(101, 101)_sigmaX=0</option>
+            
+                <option value="median_blur_ksize=3">median_blur_ksize=3</option>
+            
+                <option value="median_blur_ksize=11">median_blur_ksize=11</option>
+            
+                <option value="median_blur_ksize=51">median_blur_ksize=51</option>
+            
+                <option value="median_blur_ksize=101">median_blur_ksize=101</option>
+            
+                <option value="bilateral_filter_d=9_sigmaColor=75_sigmaSpace=75">bilateral_filter_d=9_sigmaColor=75_sigmaSpace=75</option>
+            
+                <option value="k-means_n_clusters=2">k-means_n_clusters=2</option>
+            
+                <option value="k-means_n_clusters=3">k-means_n_clusters=3</option>
+            
+                <option value="k-means_n_clusters=4">k-means_n_clusters=4</option>
+            
+        </select>
+    </span>
+    </div>
+
+    <div>
+        <span>
+            <img id="image" src="">
+        </span>
+            <span>
+            <img id="filtered" src="">
+        </span>
+    </div>
+
+</main>
+
+</body>
+</html>
