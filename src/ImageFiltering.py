@@ -4,27 +4,27 @@ from functools import partial
 from pathlib import Path
 
 import cv2 as cv
+import tqdm as tqdm
 
 import Config
 from DynamicFilter import Filter
 from FilterFunctions import kmean_segmentation, noise_with_skimage
-
 
 GENERATED_IMAGES_DIR = str((Config.STATIC_DIR / "generated").absolute())
 
 FILTER_FUNCTIONS = {
     'no_filter': lambda image: {'no_filter': image},
     'averaging_blur': Filter(cv.blur, 'averaging_blur', ksize=[(10, 10), (50, 50), (100, 100)]),
-    'gaussian_blur': Filter(cv.GaussianBlur, 'gaussian_blur', ksize=[(3, 3), (5, 5), (11, 11), (51, 51), (101, 101)], sigmaX=0),
-    'median_blur': Filter(cv.medianBlur, 'median_blur', ksize=[3, 5, 11, 51, 101]),
+    'gaussian_blur': Filter(cv.GaussianBlur, 'gaussian_blur', ksize=[(11, 11), (51, 51), (101, 101)], sigmaX=0),
+    'median_blur': Filter(cv.medianBlur, 'median_blur', ksize=[3, 11, 51, 101]),
     'bilateral_filter': Filter(cv.bilateralFilter, 'bilateral_filter', d=9, sigmaColor=75, sigmaSpace=75),
-    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 11))),
+    'k-means': Filter(kmean_segmentation, 'k-means', n_clusters=list(range(2, 5))),
 }
 
 NOISE_FUNCTIONS = {
     'no_noise': lambda image: {'no_noise': image},
     'gaussian_noise': Filter(partial(noise_with_skimage, mode='gaussian'), 'gaussian_noise', var=[0.01, 0.1]),
-    'salt': Filter(partial(noise_with_skimage, mode='salt'), 'salt', amount=[0.01, 0.1, 0.2, 0.3]),
+    'salt': Filter(partial(noise_with_skimage, mode='salt'), 'salt', amount=[0.01, 0.1]),
     'pepper': Filter(partial(noise_with_skimage, mode='pepper'), 'pepper', amount=[0.01, 0.1]),
     'salt_and_pepper': Filter(partial(noise_with_skimage, mode='s&p'), 'salt_and_pepper', amount=[0.01, 0.1]),
     'speckle': Filter(partial(noise_with_skimage, mode='speckle'), 'speckle', var=[0.01, 0.1]),
@@ -73,9 +73,12 @@ def noise_and_filter_image(image_path: str | Path) -> int:
     return len(filtered.keys())
 
 
-def noise_and_filter_images(image_paths: list[str | Path]) -> int:
-    # with multiprocessing.Pool(min(len(image_paths), multiprocessing.cpu_count())) as pool:
-    with multiprocessing.Pool(6) as pool:
-        results = pool.map(noise_and_filter_image, image_paths)
+def noise_and_filter_images(image_paths: list[str | Path],
+                            number_of_processes: int = multiprocessing.cpu_count()) -> int:
+    results = 0
+    with multiprocessing.Pool(min(len(image_paths)//2, number_of_processes)) as pool:
+        # results = pool.map(noise_and_filter_image, image_paths)
+        for result in tqdm.tqdm(pool.imap_unordered(noise_and_filter_image, image_paths), total=len(image_paths), unit="image", desc="Generating images"):
+            results += result
 
-    return sum(results)
+    return results
